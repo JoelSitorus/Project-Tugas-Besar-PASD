@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Health Advisor - Konsultasi{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Konsultasi Kesehatan dan Gizi</h2>
+    
+    <form action="{{ url_for('main.consult') }}" method="post">
+        <div class="form-group">
+            <label for="category">Pilih Kategori Konsultasi:</label>
+            <select id="category" name="category" required onchange="showFields()">
+                <option value="">-- Pilih Kategori --</option>
+                <option value="riwayat_penyakit">Riwayat Penyakit</option>
+                <option value="gizi_mpasi_lansia">Info Gizi (MPASI / Lansia)</option>
+                <option value="diet_hidup_sehat">Diet dan Hidup Sehat</option>
+                <option value="tinggi_badan_otot">Tinggi Badan dan Massa Otot</option>
+                <option value="info_gizi_harian">Info Gizi Sehari-hari</option>
+            </select>
+        </div>
+        
+        <!-- Fields untuk Riwayat Penyakit -->
+        <div id="fields_riwayat_penyakit" class="category-fields" style="display:none;">
+            <div class="form-group">
+                <label for="kondisi">Kondisi/Penyakit:</label>
+                <input type="text" id="kondisi" name="kondisi" placeholder="Contoh: Jerawat, Diabetes">
+            </div>
+            <div class="form-group">
+                <label for="lama_menderita">Lama Menderita (bulan):</label>
+                <input type="number" id="lama_menderita" name="lama_menderita" min="0">
+            </div>
+        </div>
+        
+        <!-- Fields untuk MPASI/Lansia -->
+        <div id="fields_gizi_mpasi_lansia" class="category-fields" style="display:none;">
+            <div class="form-group">
+                <label for="tipe">Tipe:</label>
+                <select id="tipe" name="tipe">
+                    <option value="mpasi">MPASI (Makanan Pendamping ASI)</option>
+                    <option value="lansia">Lansia</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="usia">Usia (bulan/tahun):</label>
+                <input type="number" id="usia" name="usia" min="0">
+            </div>
+        </div>
+        
+        <!-- Fields untuk Diet -->
+        <div id="fields_diet_hidup_sehat" class="category-fields" style="display:none;">
+            <div class="form-group">
+                <label for="berat">Berat Badan (kg):</label>
+                <input type="number" id="berat" name="berat" step="0.1" min="0">
+            </div>
+            <div class="form-group">
+                <label for="tinggi">Tinggi Badan (cm):</label>
+                <input type="number" id="tinggi" name="tinggi" min="0">
+            </div>
+            <div class="form-group">
+                <label for="aktivitas">Tingkat Aktivitas:</label>
+                <select id="aktivitas" name="aktivitas">
+                    <option value="rendah">Rendah</option>
+                    <option value="sedang">Sedang</option>
+                    <option value="tinggi">Tinggi</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Fields untuk Tinggi dan Otot -->
+        <div id="fields_tinggi_badan_otot" class="category-fields" style="display:none;">
+            <div class="form-group">
+                <label for="usia">Usia (tahun):</label>
+                <input type="number" id="usia" name="usia" min="0">
+            </div>
+            <div class="form-group">
+                <label for="tinggi">Tinggi Badan (cm):</label>
+                <input type="number" id="tinggi" name="tinggi" min="0">
+            </div>
+            <div class="form-group">
+                <label for="berat">Berat Badan (kg):</label>
+                <input type="number" id="berat" name="berat" step="0.1" min="0">
+            </div>
+            <div class="form-group">
+                <label for="target">Target:</label>
+                <select id="target" name="target">
+                    <option value="tinggi">Meningkatkan Tinggi Badan</option>
+                    <option value="otot">Menambah Massa Otot</option>
+                    <option value="keduanya">Keduanya</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Fields untuk Info Gizi -->
+        <div id="fields_info_gizi_harian" class="category-fields" style="display:none;">
+            <div class="form-group">
+                <label for="usia">Usia (tahun):</label>
+                <input type="number" id="usia" name="usia" min="0">
+            </div>
+            <div class="form-group">
+                <label for="jenis_kelamin">Jenis Kelamin:</label>
+                <select id="jenis_kelamin" name="jenis_kelamin">
+                    <option value="pria">Pria</option>
+                    <option value="wanita">Wanita</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="aktivitas">Tingkat Aktivitas:</label>
+                <select id="aktivitas" name="aktivitas">
+                    <option value="rendah">Rendah</option>
+                    <option value="sedang">Sedang</option>
+                    <option value="tinggi">Tinggi</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <button type="submit" class="btn-submit">Dapatkan Saran</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

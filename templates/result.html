@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Health Advisor - Hasil Konsultasi{% endblock %}
+
+{% block content %}
+<div class="container result-container">
+    <h2>Hasil Konsultasi</h2>
+    
+    {% if error %}
+    <div class="error-message">
+        <p>{{ error }}</p>
+    </div>
+    {% endif %}
+    
+    {% if result %}
+    <div class="result-section">
+        <h3>Kategori: 
+            {% if result.category == "riwayat_penyakit" %}
+                Riwayat Penyakit
+            {% elif result.category == "gizi_mpasi_lansia" %}
+                Info Gizi (MPASI / Lansia)
+            {% elif result.category == "diet_hidup_sehat" %}
+                Diet dan Hidup Sehat
+            {% elif result.category == "tinggi_badan_otot" %}
+                Tinggi Badan dan Massa Otot
+            {% elif result.category == "info_gizi_harian" %}
+                Info Gizi Sehari-hari
+            {% endif %}
+        </h3>
+        
+        <div class="input-summary">
+            <h4>Informasi Input:</h4>
+            <ul>
+                {% for key, value in result.input.items() %}
+                    {% if key != "category" %}
+                    <li><strong>{{ key|replace('_', ' ')|title }}:</strong> {{ value }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="recommendation">
+            <h4>Rekomendasi:</h4>
+            <p>{{ result.recommendation }}</p>
+        </div>
+    </div>
+    
+    <div class="action-buttons">
+        <a href="{{ url_for('main.index') }}" class="btn-back">Konsultasi Baru</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
